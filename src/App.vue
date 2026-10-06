@@ -8,7 +8,13 @@
     <EngagementsSection />
     <WavyRibbon id="qui-sommes-nous" text="La vigne, notre terrain de jeu" />
     <AboutSection />
-    <CommunitySection id="communaute" />
+    <WavyRibbon
+      id="communaute"
+      text="Rejoignez la communauté complètement Pom'Poches"
+      inverted
+      reverse
+    />
+    <CommunitySection />
   </main>
   <SiteFooter />
 </template>

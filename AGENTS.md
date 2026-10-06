@@ -84,9 +84,8 @@ tests/
 Entête fixe, puis : hero plein écran (vidéo à venir, porte le `h1`), bandeau
 `#produits`, « Les iconiques », bandeau
 `#engagements`, section engagements, bandeau `#qui-sommes-nous`, « Qui
-sommes-nous », section `#communaute`, pied de page. Les trois premières
-sections s'ouvrent sur un bandeau, qui porte l'ancre du menu ; « Communauté »
-porte son ancre elle-même. Les fonds s'enchaînent en dégradés (lime, crème,
+sommes-nous », bandeau `#communaute`, « Communauté », pied de page. Chaque section s'ouvre
+sur un bandeau, qui porte l'ancre du menu. Les fonds s'enchaînent en dégradés (lime, crème,
 lime, bleu ciel du pied de page) : changer une couleur de fond implique de
 vérifier les jonctions voisines. Les liens
 « Produits » et « Engagements » visent **les bandeaux**, pas les sections.
@@ -117,6 +116,16 @@ vérifier les jonctions voisines. Les liens
 - En capture headless, forcer
   `--blink-settings=availableHoverTypes=2,primaryHoverType=2` : sinon Chrome
   rapporte `hover: none` et le survol n'est jamais rendu.
+
+### Polaroïds de « Qui sommes-nous »
+
+- Chaque polaroïd porte sa légende manuscrite et sa flèche (`POLAROIDS` dans
+  `AboutSection.vue`). `place` choisit la position : `top-left`, `bottom` ou
+  `top-right` ; la même flèche SVG est retournée en CSS (`scaleX` / `scaleY`)
+  selon la position.
+- La légende est sœur de la photo, pas enfant : elle ne tourne pas avec elle.
+- En mobile, l'espace vertical entre photos (13rem) loge les légendes
+  `bottom` et `top-right` qui se suivent ; ne pas le réduire.
 
 ### Défilé de la communauté
 
