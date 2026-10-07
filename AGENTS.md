@@ -72,6 +72,7 @@ src/
 │   ├── GrapeBunch.vue        # Grappe de raisin SVG
 │   ├── VineLeaf.vue          # Feuille de vigne SVG
 │   ├── DoodleArrow.vue       # Flèche dessinée à la main des légendes manuscrites
+│   ├── HealthNotice.vue      # Mention « L'abus d'alcool… » (sous les iconiques, pied de page)
 │   └── PhotoPlaceholder.vue  # « Photo / Vidéo à venir », filet de sécurité du défilé
 ├── data/                     # Contenu de la page, zéro logique
 │   ├── sections.ts           # Entrées du menu (et ancres des bandeaux)

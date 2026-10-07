@@ -24,6 +24,7 @@
         </div>
         <BrandLogo class="relative h-full w-auto drop-shadow-lg" />
       </a>
+      <HealthNotice class="mt-10" />
       <button type="button" class="footer-up" aria-label="Retour en haut" @click="scrollToTop">
         <svg
           viewBox="0 0 24 24"
@@ -58,6 +59,7 @@
 <script setup lang="ts">
 import BrandLogo from '@/components/BrandLogo.vue'
 import GrapeBunch from '@/components/GrapeBunch.vue'
+import HealthNotice from '@/components/HealthNotice.vue'
 import VineLeaf from '@/components/VineLeaf.vue'
 import { scrollToTop } from '@/lib/scroll'
 import type { GrapeColor } from '@/data/grapes'

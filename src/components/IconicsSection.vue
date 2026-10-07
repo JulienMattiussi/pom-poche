@@ -22,11 +22,13 @@
           <ProductCard :product="product" />
         </li>
       </ul>
+      <HealthNotice class="mt-16" />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import HealthNotice from '@/components/HealthNotice.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import { PRODUCTS } from '@/data/products'
 </script>

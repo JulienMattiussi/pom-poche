@@ -128,4 +128,13 @@ describe('App', () => {
       screen.getByRole('img', { name: 'Poche PomPoche Cabernet-Sauvignon, Cuvée des anciens' }),
     ).toHaveAttribute('src', 'pouches/cabernet.webp')
   })
+
+  it('shows the health notice under the iconics and in the footer', () => {
+    render(App)
+    expect(
+      screen.getAllByText(
+        "L'abus d'alcool est dangereux pour la santé, à consommer avec modération.",
+      ),
+    ).toHaveLength(2)
+  })
 })

@@ -128,7 +128,8 @@ n'est associée à ce projet, et personne ne devrait mettre de vin dans le goût
 de qui que ce soit. Les vidéos restent la propriété de leurs auteurs et sont
 intégrées depuis YouTube.
 
-**L'abus d'alcool est dangereux pour la santé, à consommer avec modération.**
+**L'abus d'alcool est dangereux pour la santé, à consommer avec modération.** La
+mention figure aussi sur le site, sous les iconiques et dans le pied de page.
 
 ## Licence
 

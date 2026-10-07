@@ -425,12 +425,20 @@
     position: absolute;
   }
 
+  .health-notice {
+    max-width: 42rem;
+    color: var(--color-forest);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
   .footer-up {
     display: grid;
     place-items: center;
     width: 2.75rem;
     height: 2.75rem;
-    margin-top: 3.5rem;
+    margin-top: 2rem;
     border-radius: 999px;
     background-color: #7ab55c;
     color: var(--color-pine-deep);
