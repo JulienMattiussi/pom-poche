@@ -30,9 +30,14 @@ Zéro dépendance runtime en dehors de Vue et des polices Fontsource.
 ```
 public/
 ├── favicon.png               # Logo bouteille, fond transparent (généré, versionné)
+├── pouches/                  # Visuels de poches détourés (WebP avec transparence)
+├── community/                # Photos du défilé « Communauté »
 ├── apple-touch-icon.png      # Idem sur fond vert, iOS refuse la transparence (généré)
 └── robots.txt
+pouches/
+└── src/                      # Maquettes de poches d'origine (JPEG 671x1024), source de vérité
 scripts/
+├── cutout-pouches.py         # Détoure pouches/src/ vers public/pouches/ (`make pouches`)
 └── favicon-template.html     # Gabarit des icônes, rendu par `make favicon`
 src/
 ├── components/
@@ -51,7 +56,6 @@ src/
 │   ├── SocialIcon.vue        # Icônes des réseaux parodiques (Picolagram, TikTrinque, FaceBouteille, BeRond) + YouTube
 │   └── PhotoPlaceholder.vue  # Emplacement « Photo à venir » (ou « Vidéo à venir »)
 │   ├── ProductCard.vue       # Vignette : poche, grappes, bulle au survol
-│   ├── PouchPlaceholder.vue  # Poche SVG en attendant les vraies photos
 │   ├── GrapeBunch.vue        # Grappe de raisin SVG, couleur en prop
 │   └── WavyRibbon.vue        # Bandeau en vague, texte qui défile avec le scroll
 ├── community.ts              # Réseaux, posts du défilé, réservoir de Shorts
@@ -101,6 +105,9 @@ vérifier les jonctions voisines. Les liens
 - Le logo de l'entête, le grand logo du pied de page et sa flèche ramènent en
   haut via `scrollToTop` (`src/lib/scroll.ts`), qui efface aussi le fragment de
   l'URL.
+- **Images de `public/`** : toujours via un `src` lié (`:src="CONSTANTE"`),
+  jamais `src="fichier.webp"` en dur dans un gabarit Vue : Vite le prend pour un
+  import de module et le build échoue.
 - Les classes Tailwind ne doivent **jamais être construites dynamiquement**
   (`text-${color}`) : Tailwind ne les détecte pas. D'où les classes complètes
   dans `engagements.ts`.
@@ -202,6 +209,18 @@ et à chaque boucle : accepté.
 - L'iframe est en `pointer-events: none` : le survol reste sur la carte, et
   personne ne peut réactiver le son depuis le lecteur.
 
+### Poches détourées
+
+- `pouches/src/` garde les maquettes d'origine ; `public/pouches/` contient les
+  WebP détourés, générés mais versionnés (Vercel n'a pas Pillow ni ImageMagick).
+- `make pouches` (ou `python3 scripts/cutout-pouches.py <nom>` pour une seule)
+  régénère. Le détourage suppose **le gabarit commun** des maquettes
+  (671x1024, poche aux mêmes coordonnées) : le corps est un contour fixe, le
+  bouchon est isolé par son vert saturé. Une maquette d'un autre cadrage
+  demande d'ajuster le contour dans le script.
+- Placement : `cabernet` dans le hero, `velo` / `mamie` / `grappe` dans les
+  iconiques (`products.ts`), `degustation` sur le « 2026 ».
+
 ### Favicon
 
 Le favicon est un PNG et non un SVG : un SVG utilisé comme image ne charge pas
@@ -284,6 +303,7 @@ modification dans le gabarit puis lancer `make favicon`** (nécessite Chrome).
 | `make install` | Installe les dépendances |
 | `make start` | Serveur de dev (http://localhost:9096) |
 | `make build` | Build de production |
+| `make pouches` | Détoure les maquettes de `pouches/src/` vers `public/pouches/` |
 | `make favicon` | Régénère `favicon.png` et `apple-touch-icon.png` (nécessite Chrome) |
 | `make lint` | ESLint |
 | `make knip` | Détecte fichiers / exports / dépendances inutilisés |

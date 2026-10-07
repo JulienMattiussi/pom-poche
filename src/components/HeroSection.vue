@@ -11,15 +11,19 @@
     </div>
     <div class="hero__content">
       <h1 class="hero__title">La vigne, ça rend complètement Pom'Poche !</h1>
-      <PouchPlaceholder band="#e03246" class="hero__pouch" />
+      <img
+        :src="HERO_POUCH"
+        alt="Poche PomPoche Cabernet-Sauvignon, Cuvée des anciens"
+        class="hero__pouch"
+      />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import PouchPlaceholder from '@/components/PouchPlaceholder.vue'
 import { backgroundUrl } from '@/lib/youtube'
 
 const HERO_VIDEO = 'MStv4W841dE'
 const HERO_VIDEO_START = 12
+const HERO_POUCH = 'pouches/cabernet.webp'
 </script>

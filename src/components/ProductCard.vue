@@ -1,6 +1,6 @@
 <template>
   <article class="product-card" tabindex="0" :style="{ '--tilt': `${product.tilt}deg` }">
-    <PouchPlaceholder :band="product.band" class="product-card__pouch" />
+    <img :src="product.pouch" :alt="product.alt" loading="lazy" class="product-card__pouch" />
     <div class="product-card__fruits">
       <GrapeBunch
         v-for="bunch in product.bunches"
@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 import GrapeBunch from '@/components/GrapeBunch.vue'
-import PouchPlaceholder from '@/components/PouchPlaceholder.vue'
 import type { Product } from '@/products'
 
 defineProps<{ product: Product }>()

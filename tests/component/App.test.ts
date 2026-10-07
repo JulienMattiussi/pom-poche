@@ -27,7 +27,7 @@ describe('App', () => {
       expect(screen.getByText(badge)).toBeInTheDocument()
     }
     const iconics = screen.getByRole('heading', { name: 'Les iconiques' }).closest('section')!
-    expect(within(iconics).getAllByRole('img', { name: 'Photo à venir' })).toHaveLength(3)
+    expect(within(iconics).getAllByRole('img', { name: /^Poche PomPoche/ })).toHaveLength(3)
   })
 
   it('scrolls back to the top when the logo is clicked', async () => {
@@ -120,5 +120,12 @@ describe('App', () => {
     expect(container.querySelector('.about__hero')!.getAttribute('src')).toContain(
       '/embed/qciVY1Hma_s',
     )
+  })
+
+  it('shows the Cabernet pouch in the hero', () => {
+    render(App)
+    expect(
+      screen.getByRole('img', { name: 'Poche PomPoche Cabernet-Sauvignon, Cuvée des anciens' }),
+    ).toHaveAttribute('src', 'pouches/cabernet.webp')
   })
 })

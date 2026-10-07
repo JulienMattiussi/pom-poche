@@ -1,10 +1,8 @@
 <template>
   <div class="flex flex-col items-center">
     <p class="year" aria-hidden="true">
-      <span v-for="(digit, i) in YEAR" :key="i" class="year__digit">
-        {{ digit }}
-        <PouchPlaceholder v-if="i === POUCH_DIGIT" band="#9cc23c" class="year__pouch" />
-      </span>
+      <span v-for="(digit, i) in YEAR" :key="i">{{ digit }}</span>
+      <img :src="YEAR_POUCH" alt="" loading="lazy" class="year__pouch" />
     </p>
     <h3 class="mt-4 text-lg font-bold text-forest">{{ YEAR }}</h3>
     <p class="year__text">
@@ -15,8 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import PouchPlaceholder from '@/components/PouchPlaceholder.vue'
-
 const YEAR = '2026'
-const POUCH_DIGIT = 2
+const YEAR_POUCH = 'pouches/degustation.webp'
 </script>

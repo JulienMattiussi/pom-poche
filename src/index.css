@@ -280,6 +280,7 @@
   }
 
   .year {
+    position: relative;
     display: flex;
     color: var(--color-forest);
     font-size: clamp(6rem, 17vw, 11rem);
@@ -288,19 +289,13 @@
     letter-spacing: 0.04em;
   }
 
-  .year__digit {
-    position: relative;
-  }
-
   .year__pouch {
     position: absolute;
-    top: clamp(-1.32rem, -2vw, -0.72rem);
+    top: 50%;
     left: 50%;
-    width: clamp(4.3rem, 12.2vw, 7.9rem);
-    font-size: 1rem;
-    letter-spacing: normal;
+    width: clamp(3rem, 8.5vw, 5.5rem);
     filter: drop-shadow(0 12px 14px rgb(0 0 0 / 0.25));
-    transform: translateX(-50%) rotate(10deg);
+    transform: translate(-50%, -50%) rotate(10deg);
   }
 
   .year__text {

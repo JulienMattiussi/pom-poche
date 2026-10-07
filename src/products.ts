@@ -5,7 +5,8 @@ type Bunch = { color: GrapeColor; side: 'left' | 'middle' | 'right' }
 export type Product = {
   id: string
   badge: string
-  band: string
+  pouch: string
+  alt: string
   tilt: number
   bunches: Bunch[]
 }
@@ -23,7 +24,8 @@ export const PRODUCTS: Product[] = [
   {
     id: 'sans-sucres',
     badge: 'Sans sucres ajoutés',
-    band: '#e03246',
+    pouch: 'pouches/velo.webp',
+    alt: 'Poche PomPoche Syrah et Grenache, le papy à vélo',
     tilt: 5,
     bunches: [
       { color: 'red', side: 'left' },
@@ -34,7 +36,8 @@ export const PRODUCTS: Product[] = [
   {
     id: 'bio',
     badge: 'Bio',
-    band: '#f08a1c',
+    pouch: 'pouches/mamie.webp',
+    alt: 'Poche PomPoche Syrah et Grenache, la mamie qui trinque',
     tilt: -6,
     bunches: [
       { color: 'green', side: 'left' },
@@ -45,7 +48,8 @@ export const PRODUCTS: Product[] = [
   {
     id: 'cinq-cepages',
     badge: '5 cépages',
-    band: '#ef7d1a',
+    pouch: 'pouches/grappe.webp',
+    alt: 'Poche PomPoche Syrah et Grenache, le vigneron et sa grappe',
     tilt: -8,
     bunches: [
       { color: 'pink', side: 'left' },
