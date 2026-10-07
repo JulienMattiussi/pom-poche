@@ -1,21 +1,49 @@
-export type Network = 'instagram' | 'tiktok' | 'facebook' | 'bereal'
+export type Network = 'picolagram' | 'tiktrinque' | 'facebouteille' | 'berond' | 'youtube'
 
-type Post = { network: Network; video: boolean; tilt: number }
+export type Post = { network: Network; video: boolean; tilt: number }
 
-export const NETWORKS: { id: Network; label: string }[] = [
-  { id: 'instagram', label: 'Instagram' },
-  { id: 'tiktok', label: 'TikTok' },
-  { id: 'facebook', label: 'Facebook' },
-  { id: 'bereal', label: 'BeReal' },
+export const NETWORKS: { id: Exclude<Network, 'youtube'>; label: string }[] = [
+  { id: 'picolagram', label: 'Picolagram' },
+  { id: 'tiktrinque', label: 'TikTrinque' },
+  { id: 'facebouteille', label: 'FaceBouteille' },
+  { id: 'berond', label: 'BeRond' },
+]
+
+export const SHORTS = [
+  'MqKGQs1DcSg',
+  '6WmUl5IH3mw',
+  'QJTlnT3UdrE',
+  'GSvb4rjeN2I',
+  'rfly8Ud9d1M',
+  'xkWiacz_JY0',
+  'z3TcDFawCvQ',
+  '7wDUx1WdbD8',
+]
+
+export const BACKUP_ONLY = ['tgDtO0RzZVs']
+
+export type Photo = { src: string; alt: string }
+
+export const PHOTOS: Photo[] = [
+  { src: 'community/fan-rue.jpg', alt: 'Un fan dans la rue, canette à la main' },
+  { src: 'community/fan-trottoir.jpg', alt: 'Un fan sur le trottoir, canette à la main' },
+  { src: 'community/canette.jpg', alt: 'Une main tenant une canette entamée' },
+  { src: 'community/selfie-canette.jpg', alt: 'Deux fans hilares en selfie, canette levée' },
+  {
+    src: 'community/trottoir-nuit.jpg',
+    alt: 'Trois fans endormis contre un mur, la nuit, entourés de canettes',
+  },
 ]
 
 export const POSTS: Post[] = [
-  { network: 'bereal', video: false, tilt: 3 },
-  { network: 'tiktok', video: true, tilt: -3 },
-  { network: 'facebook', video: false, tilt: 2 },
-  { network: 'instagram', video: true, tilt: -2 },
-  { network: 'bereal', video: false, tilt: 3 },
-  { network: 'tiktok', video: true, tilt: -4 },
-  { network: 'instagram', video: false, tilt: 2 },
-  { network: 'facebook', video: true, tilt: -2 },
+  { network: 'berond', video: false, tilt: 3 },
+  { network: 'youtube', video: true, tilt: -3 },
+  { network: 'facebouteille', video: false, tilt: 2 },
+  { network: 'youtube', video: true, tilt: -2 },
+  { network: 'picolagram', video: false, tilt: 3 },
+  { network: 'youtube', video: true, tilt: -4 },
+  { network: 'berond', video: false, tilt: 2 },
+  { network: 'youtube', video: true, tilt: -2 },
+  { network: 'tiktrinque', video: false, tilt: 3 },
+  { network: 'youtube', video: true, tilt: -3 },
 ]

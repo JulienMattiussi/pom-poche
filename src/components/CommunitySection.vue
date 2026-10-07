@@ -25,25 +25,39 @@
     </p>
     <div class="community__reel">
       <ul class="community__track">
-        <li
+        <CommunityPost
           v-for="(post, i) in [...POSTS, ...POSTS]"
           :key="i"
-          class="post"
+          :post="post"
+          :videos="videosFor(i % POSTS.length)"
+          :photo="photoFor(i % POSTS.length)"
+          :duplicate="i >= POSTS.length"
           :aria-hidden="i >= POSTS.length"
-          :style="{ '--tilt': `${post.tilt}deg` }"
-        >
-          <PhotoPlaceholder :video="post.video" class="h-full w-full" />
-          <span class="social-badge post__badge">
-            <SocialIcon :network="post.network" />
-          </span>
-        </li>
+        />
       </ul>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import PhotoPlaceholder from '@/components/PhotoPlaceholder.vue'
+import CommunityPost from '@/components/CommunityPost.vue'
 import SocialIcon from '@/components/SocialIcon.vue'
-import { NETWORKS, POSTS } from '@/community'
+import { BACKUP_ONLY, NETWORKS, PHOTOS, POSTS, SHORTS } from '@/community'
+import { assignVideos, shuffle } from '@/lib/rotation'
+
+const videoSlots = POSTS.flatMap((post, i) => (post.network === 'youtube' ? [i] : []))
+const assignment = assignVideos(videoSlots.length, SHORTS, BACKUP_ONLY)
+
+const videosFor = (index: number) => {
+  const slot = videoSlots.indexOf(index)
+  return slot === -1 ? undefined : assignment[slot]
+}
+
+const photoSlots = POSTS.flatMap((post, i) => (post.network === 'youtube' ? [] : [i]))
+const photos = shuffle(PHOTOS)
+
+const photoFor = (index: number) => {
+  const slot = photoSlots.indexOf(index)
+  return slot === -1 ? undefined : photos[slot]
+}
 </script>

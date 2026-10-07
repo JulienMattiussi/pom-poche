@@ -2,7 +2,14 @@
   <section class="about">
     <div class="px-6 pt-16 pb-20 text-center">
       <h2 class="about__title">Pionniers depuis 2026</h2>
-      <PhotoPlaceholder class="about__hero" />
+      <iframe
+        :src="playerUrl(PIONEERS_VIDEO)"
+        title="Vidéo YouTube"
+        loading="lazy"
+        allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+        allowfullscreen
+        class="about__hero"
+      />
     </div>
     <div class="overflow-x-clip px-6 pt-8 pb-40">
       <p class="about__pitch">
@@ -30,7 +37,16 @@
               <path d="M4 14 C20 2 60 2 76 14 C60 22 20 22 4 14 Z" fill="#4cb648" />
               <rect x="30" y="6" width="20" height="32" rx="4" fill="#2f9a2f" />
             </svg>
-            <PhotoPlaceholder class="aspect-[4/3] w-full" />
+            <iframe
+              v-if="polaroid.youtube"
+              :src="playerUrl(polaroid.youtube)"
+              title="Vidéo YouTube"
+              loading="lazy"
+              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+              allowfullscreen
+              class="block aspect-[4/3] w-full border-0 bg-black"
+            />
+            <PhotoPlaceholder v-else class="aspect-[4/3] w-full" />
           </figure>
         </li>
       </ul>
@@ -40,11 +56,29 @@
 
 <script setup lang="ts">
 import PhotoPlaceholder from '@/components/PhotoPlaceholder.vue'
+import { playerUrl } from '@/lib/youtube'
 import YearHighlight from '@/components/YearHighlight.vue'
 
-const POLAROIDS = [
-  { tilt: -5, place: 'top-left', caption: 'Nos raisins sont origine France' },
-  { tilt: 3, place: 'bottom', caption: 'La biture, c’est encore mieux avec les popoches' },
-  { tilt: 7, place: 'top-right', caption: "Faire le plein d'alcool avec Pom’Poches." },
+const PIONEERS_VIDEO = 'qciVY1Hma_s'
+
+const POLAROIDS: { tilt: number; place: string; caption: string; youtube?: string }[] = [
+  {
+    tilt: -5,
+    place: 'top-left',
+    caption: 'Nos raisins sont origine France',
+    youtube: 'mFtzcQA8oHA',
+  },
+  {
+    tilt: 3,
+    place: 'bottom',
+    caption: 'La biture, c’est encore mieux avec les popoches',
+    youtube: '24HBTNZI-0U',
+  },
+  {
+    tilt: 7,
+    place: 'top-right',
+    caption: "Faire le plein d'alcool avec Pom’Poches.",
+    youtube: 't6JkG0oHcoM',
+  },
 ]
 </script>

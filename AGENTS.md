@@ -39,25 +39,28 @@ src/
 │   ├── BrandLogo.vue         # Logo SVG : bouteille + lettrage "Pom'Poche"
 │   ├── SiteHeader.vue        # Barre blanche flottante, liens de part et d'autre du logo
 │   ├── SiteFooter.vue        # Grand logo (retour en haut), colline, mentions
-│   ├── HeroSection.vue       # Plein écran : vidéo (placeholder), accroche h1, poche
+│   ├── HeroSection.vue       # Plein écran : vidéo YouTube de fond, accroche h1, poche
 │   ├── IconicsSection.vue    # Section "Les iconiques"
 │   ├── EngagementsSection.vue # Cartes blanches inclinées, disposées en quinconce
 │   ├── EngagementBurst.vue   # Grappes + feuilles qui jaillissent derrière une carte au survol
 │   ├── VineLeaf.vue          # Feuille de vigne SVG
-│   ├── AboutSection.vue      # « Qui sommes-nous » : titre, photo, 2026, polaroïds
+│   ├── AboutSection.vue      # « Qui sommes-nous » : titre, vidéo, 2026, polaroïds
 │   ├── YearHighlight.vue     # « 2026 » géant, poche posée sur le 3e chiffre
 │   ├── CommunitySection.vue  # « Complètement Pom'Poche » : réseaux + défilé de posts
-│   ├── SocialIcon.vue        # Icônes Instagram / TikTok / Facebook / BeReal
+│   ├── CommunityPost.vue     # Une carte du défilé (placeholder ou Short YouTube muet)
+│   ├── SocialIcon.vue        # Icônes des réseaux parodiques (Picolagram, TikTrinque, FaceBouteille, BeRond) + YouTube
 │   └── PhotoPlaceholder.vue  # Emplacement « Photo à venir » (ou « Vidéo à venir »)
 │   ├── ProductCard.vue       # Vignette : poche, grappes, bulle au survol
 │   ├── PouchPlaceholder.vue  # Poche SVG en attendant les vraies photos
 │   ├── GrapeBunch.vue        # Grappe de raisin SVG, couleur en prop
 │   └── WavyRibbon.vue        # Bandeau en vague, texte qui défile avec le scroll
-├── community.ts              # Réseaux et posts du défilé (réseau, photo/vidéo, inclinaison)
+├── community.ts              # Réseaux, posts du défilé, réservoir de Shorts
 ├── engagements.ts            # Les 3 engagements (titre, couleur, inclinaison, placement)
 ├── products.ts               # Les 3 produits (bulle, couleur de bandeau, grappes)
 ├── lib/
-│   └── scroll.ts             # scrollToTop, partagé par l'entête et le pied de page
+│   ├── rotation.ts           # Mélange et répartition des Shorts à chaque visite
+│   ├── scroll.ts             # scrollToTop, partagé par l'entête et le pied de page
+│   └── youtube.ts            # URL d'embed + messages de l'API iframe YouTube
 ├── sections.ts               # Liste des sections : alimente la nav et les ancres
 ├── App.vue                   # La page (scroll vertical : hero + sections)
 ├── index.css                 # Import Tailwind + thème
@@ -65,7 +68,7 @@ src/
 └── vite-env.d.ts
 tests/
 ├── setup.ts                  # jest-dom pour Vitest
-├── unit/                     # Vitest - logique pure (src/lib/, si besoin)
+├── unit/                     # Vitest - logique pure (src/lib/)
 └── component/                # Vitest + Testing Library
 ```
 
@@ -81,7 +84,7 @@ tests/
 
 ### Ordre de la page et ancres
 
-Entête fixe, puis : hero plein écran (vidéo à venir, porte le `h1`), bandeau
+Entête fixe, puis : hero plein écran (vidéo YouTube de fond, porte le `h1`), bandeau
 `#produits`, « Les iconiques », bandeau
 `#engagements`, section engagements, bandeau `#qui-sommes-nous`, « Qui
 sommes-nous », bandeau `#communaute`, « Communauté », pied de page. Chaque section s'ouvre
@@ -117,6 +120,23 @@ vérifier les jonctions voisines. Les liens
   `--blink-settings=availableHoverTypes=2,primaryHoverType=2` : sinon Chrome
   rapporte `hover: none` et le survol n'est jamais rendu.
 
+### Vidéos YouTube hors défilé
+
+Trois façons d'intégrer, trois URL dans `src/lib/youtube.ts` :
+
+- `backgroundUrl` : fond du hero. Auto, muet, en boucle, **sans contrôles**.
+  L'iframe 16:9 est centrée et agrandie pour couvrir tout le hero
+  (`.hero__frame`), un voile dégradé (`.hero__video::after`) garde l'accroche
+  lisible, et elle ne capte aucun clic. `HERO_VIDEO_START` (12 s) saute
+  l'intro « Subscribe / Like / Comment / Share » de la vidéo.
+- `playerUrl` : vidéo sous « Pionniers depuis 2026 » et polaroïds. Auto,
+  muet, en boucle, **avec contrôles** (on peut remettre le son), chargement
+  différé (`loading="lazy"`).
+- `embedUrl` : Shorts du défilé, pilotés par l'API (voir plus bas).
+
+YouTube affiche son habillage (titre, boutons) quelques secondes au démarrage
+et à chaque boucle : accepté.
+
 ### Polaroïds de « Qui sommes-nous »
 
 - Chaque polaroïd porte sa légende manuscrite et sa flèche (`POLAROIDS` dans
@@ -124,6 +144,12 @@ vérifier les jonctions voisines. Les liens
   `top-right` ; la même flèche SVG est retournée en CSS (`scaleX` / `scaleY`)
   selon la position.
 - La légende est sœur de la photo, pas enfant : elle ne tourne pas avec elle.
+- Un polaroïd peut porter une vidéo YouTube (`youtube: '<id>'`) : lecture
+  auto muette en boucle (`playerUrl`), contrôles conservés pour pouvoir
+  remettre le son. L'iframe est en `loading="lazy"` : elle ne se charge (et ne
+  démarre) qu'à l'approche de la section. Cadre 4:3. Vérifier d'abord que la vidéo
+  autorise l'intégration (`youtube.com/oembed?url=...` répond 401 sinon, et le
+  lecteur affiche « Vidéo non disponible »).
 - En mobile, l'espace vertical entre photos (13rem) loge les légendes
   `bottom` et `top-right` qui se suivent ; ne pas le réduire.
 
@@ -132,9 +158,49 @@ vérifier les jonctions voisines. Les liens
 - La liste des posts est rendue **deux fois** à la suite ; l'animation `reel`
   translate la piste de `-50%` (plus une demi-gouttière) puis reboucle, ce qui
   donne un défilement infini sans saut. Les doublons sont en `aria-hidden`.
-- Le survol met le défilé en pause. Avec `prefers-reduced-motion`, plus
+- Chaque carte oscille doucement autour de son inclinaison (`sway` : ±1,5° et
+  ±6px). Durées et décalages varient via `nth-child` pour que les cartes ne
+  bougent pas à l'unisson.
+- Le survol met le défilé en pause (l'oscillation continue). Avec `prefers-reduced-motion`, plus
   d'animation : la piste devient défilable à la main.
 - Les pastilles de réseaux ne sont pas des liens tant qu'aucun compte n'existe.
+- **Posts YouTube** (`youtube: '<id>'` dans `POSTS`) : miniature
+  `i.ytimg.com/vi/<id>/hqdefault.jpg` (la seule qui existe pour tous les
+  Shorts ; 4:3 avec bandes noires, le recadrage `object-fit: cover` en 9:16
+  tombe pile sur la vidéo).
+- **Préchargement** (écrans avec survol uniquement) : un `IntersectionObserver`
+  (marge 300px) monte l'iframe `youtube-nocookie.com` (`enablejsapi=1`,
+  `mute=1`) dès que la carte approche de l'écran, et la lance **en lecture
+  muette, invisible** sous la miniature. Le survol ne fait que la révéler :
+  démarrage instantané (mesuré à ~10 ms, contre ~1 s en montant le lecteur au
+  survol). Hors écran, le lecteur est mis en pause.
+- **Rotation** : les posts YouTube de `POSTS` ne portent pas de vidéo.
+  `SHORTS` (`community.ts`) est un réservoir mélangé à chaque chargement
+  (`assignVideos`, `src/lib/rotation.ts`) : les premiers vont aux cartes, le
+  reste plus `BACKUP_ONLY` (vidéos horizontales, jamais en premier choix)
+  sert de secours. Les copies du défilé reçoivent la même liste que leur
+  original. Pour ajouter un Short : l'ajouter à `SHORTS`.
+- **Vidéos de secours** : chaque carte essaie sa vidéo, puis les secours
+  (`withBackups`), dans un ordre décalé selon la position de la carte pour que
+  deux cartes en panne ne tombent pas sur le même secours. On passe au suivant sur `onError`
+  du lecteur (vidéo supprimée, privée, intégration refusée, bloquée dans le
+  pays) ou si la miniature ne charge pas. Tout échoue : « Vidéo à venir ». Le
+  test se fait au préchargement, donc avant le survol.
+- **L'habillage YouTube au rebouclage est accepté** : chaque fois qu'un Short
+  repart du début (boucle gérée à la main par `seekTo` juste avant la fin,
+  `loop=1` rechargeant la vidéo), YouTube réaffiche titre, bouton pause et logo
+  ~3 s. `controls=0` n'y change rien. Seuls des mp4 auto-hébergés l'éviteraient.
+- **Ne pas faire pause / lecture au survol** : YouTube réaffiche alors son
+  habillage (titre, bouton pause, logo) pendant quelques secondes. C'est pour
+  ça que le lecteur tourne en continu tant qu'il est à l'écran, et qu'au survol
+  on tombe en cours de vidéo plutôt qu'au début.
+- Le pilotage passe par `postMessage` (`src/lib/youtube.ts`) : on envoie
+  `listening` au `load` de l'iframe, puis on reçoit `onReady` et les états de
+  lecture ; l'iframe ne devient visible qu'une fois l'état « lecture » reçu.
+- Tactile (pas de survol) : pas de préchargement, pour ne pas charger
+  plusieurs lecteurs sur mobile ; un tap monte le lecteur et le lance.
+- L'iframe est en `pointer-events: none` : le survol reste sur la carte, et
+  personne ne peut réactiver le son depuis le lecteur.
 
 ### Favicon
 
