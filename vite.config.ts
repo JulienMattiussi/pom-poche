@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { fileURLToPath, URL } from 'node:url'
 
 const PORT = 9096
-const PRODUCTION_URL = 'https://pompoche.vercel.app'
+const PRODUCTION_URL = 'https://pom-poche.vercel.app'
 
 /**
  * Absolute origin of the deployed site. Crawlers reject relative og:image URLs,

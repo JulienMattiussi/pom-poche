@@ -5,7 +5,8 @@ page en scroll vertical, calquée sur le site d'une marque de compotes à boire.
 Application **100% front-end**, interface en **français**. Partage la stack et
 les conventions de `atre-soundboard`, transposées de React à **Vue**.
 
-Hébergement visé : **Vercel Hobby**. Aucune Function, aucune base, aucun secret.
+Hébergement : **Vercel Hobby**, adresse publique **https://pom-poche.vercel.app**.
+Aucune Function, aucune base, aucun secret.
 
 ---
 
@@ -31,12 +32,21 @@ sont des intégrations YouTube (`youtube-nocookie.com`).
 ## Arborescence
 
 ```
+docs/
+└── images/                   # Captures du README (non automatisées)
+og.html                       # Page de l'image de partage (servie par Vite, hors build)
+tools/
+├── og.ts                     # Point d'entrée de og.html
+└── OgCard.vue                # Image de partage 1200x630, faite des vrais composants
 public/
 ├── community/                # Photos du défilé « Communauté »
 ├── pouches/                  # Poches détourées, WebP transparents (générés, versionnés)
 ├── favicon.png               # Logo bouteille, fond transparent (généré, versionné)
 ├── apple-touch-icon.png      # Idem sur fond vert, iOS refuse la transparence (généré)
-└── robots.txt
+├── og.png                    # Image de partage (générée par `make og`, versionnée)
+├── site.webmanifest
+├── robots.txt
+└── sitemap.xml
 pouches/
 └── src/                      # Maquettes de poches d'origine (JPEG 671x1024), source de vérité
 scripts/
@@ -248,12 +258,24 @@ de police, le lettrage Pacifico tomberait. `scripts/favicon-template.html`
 duplique le SVG de `BrandLogo.vue` ; **après un changement du logo, reporter la
 modification dans le gabarit puis lancer `make favicon`** (nécessite Chrome).
 
-### Référencement
+### Référencement et image de partage
 
-Les crawlers refusent les URL relatives pour `og:image`. `index.html` porte
-donc des jetons `%SITE_URL%` résolus au build par le plugin `inject-site-url`
-de `vite.config.ts` : `SITE_URL`, sinon `VERCEL_PROJECT_PRODUCTION_URL`, sinon
-l'URL de production. Ne pas écrire d'URL absolue en dur dans `index.html`.
+- Les crawlers refusent les URL relatives pour `og:image`. `index.html` porte
+  donc des jetons `%SITE_URL%` (canonique, `og:url`, `og:image`, JSON-LD)
+  résolus au build par le plugin `inject-site-url` de `vite.config.ts` :
+  `SITE_URL`, sinon `VERCEL_PROJECT_PRODUCTION_URL`, sinon l'adresse publique.
+  Ne pas écrire d'URL absolue en dur dans `index.html`.
+- `robots.txt` et `sitemap.xml` sont servis tels quels (pas de jeton possible
+  dans `public/`) : ils portent l'adresse publique en dur. À changer avec elle.
+- Le JSON-LD est un `WebSite` schema.org inline : vérifier qu'il reste du JSON
+  valide après modification, personne ne le compile.
+- **L'image de partage est rendue, pas dessinée** : `og.html` monte
+  `tools/OgCard.vue`, qui assemble les vrais composants (logo, bandeau, grappes,
+  feuilles) et les vraies poches détourées. `make og` lance Vite sur un port
+  dédié et capture la page en 1200x630 avec Chrome. Après un changement de
+  logo, de poches ou de bandeau, relancer `make og`, et refaire les captures de
+  `docs/images/` si l'interface a changé.
+- `og.html` n'est pas une entrée du build : elle n'existe qu'en développement.
 
 ### Captures automatisées
 
@@ -318,6 +340,7 @@ Shorts ne sont pas préchargés.
 | `make test` | Tests unitaires et composants |
 | `make fix` | Format + lint |
 | `make check` | build + lint + typecheck + knip + tests |
+| `make og` | Régénère l'image de partage `public/og.png` (nécessite Chrome) |
 | `make pouches` | Détoure les maquettes de `pouches/src/` vers `public/pouches/` |
 | `make favicon` | Régénère `favicon.png` et `apple-touch-icon.png` (nécessite Chrome) |
 | `make clean` | Supprime `dist`, `node_modules`, `coverage` |

@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://pom-poche.vercel.app/sitemap.xml

@@ -1,0 +1,15 @@
+{
+  "name": "PomPoche",
+  "short_name": "PomPoche",
+  "description": "Le vin en gourde des grands enfants. Une parodie, à consommer avec modération.",
+  "lang": "fr-FR",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#94bd4c",
+  "theme_color": "#94bd4c",
+  "icons": [
+    { "src": "favicon.png", "type": "image/png", "sizes": "192x192", "purpose": "any" },
+    { "src": "apple-touch-icon.png", "type": "image/png", "sizes": "180x180" }
+  ]
+}

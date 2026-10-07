@@ -52,6 +52,15 @@ favicon: ## Re-render public/favicon.png and public/apple-touch-icon.png from sc
 		--window-size=180,180 --screenshot=public/apple-touch-icon.png "file://$(CURDIR)/scripts/favicon-template.html#opaque" 2>/dev/null
 	@echo "public/favicon.png (192x192) et public/apple-touch-icon.png (180x180) regeneres"
 
+.PHONY: og
+og: ## Re-render the share image public/og.png from og.html, built with the real components (needs Chrome)
+	@test -n "$(CHROME)" || { echo "Chrome introuvable. Passe le binaire : make og CHROME=/chemin/vers/chrome"; exit 1; }
+	@npx vite --port 9097 --strictPort >/dev/null 2>&1 & echo $$! > .og.pid; sleep 3
+	@"$(CHROME)" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
+		--virtual-time-budget=4000 --window-size=1200,630 --screenshot=public/og.png http://localhost:9097/og.html 2>/dev/null
+	@kill `cat .og.pid` && rm .og.pid
+	@echo "public/og.png (1200x630) regeneree"
+
 .PHONY: pouches
 pouches: ## Re-cut every mockup of pouches/src/ into public/pouches/ (needs Python + Pillow, ImageMagick)
 	@python3 scripts/cutout-pouches.py

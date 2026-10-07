@@ -13,8 +13,8 @@
     "typecheck": "vue-tsc -b --noEmit",
     "lint": "eslint .",
     "knip": "knip",
-    "format": "prettier --write \"src/**/*.{ts,vue,css}\" \"tests/**/*.ts\"",
-    "format:check": "prettier --check \"src/**/*.{ts,vue,css}\" \"tests/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.{ts,vue,css}\" \"tools/**/*.{ts,vue}\" \"tests/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.{ts,vue,css}\" \"tools/**/*.{ts,vue}\" \"tests/**/*.ts\"",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
