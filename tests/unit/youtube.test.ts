@@ -1,11 +1,4 @@
-import {
-  backgroundUrl,
-  commandMessage,
-  embedUrl,
-  playerUpdate,
-  playerUrl,
-  withBackups,
-} from '@/lib/youtube'
+import { backgroundUrl, commandMessage, embedUrl, playerUpdate, playerUrl } from '@/lib/youtube'
 
 describe('embedUrl', () => {
   it('builds a muted, looping, scriptable nocookie embed', () => {
@@ -80,21 +73,5 @@ describe('playerUpdate', () => {
     expect(playerUpdate(JSON.stringify({ event: 'onStateChange', info: 'x' }))).toBeNull()
     expect(playerUpdate('not json')).toBeNull()
     expect(playerUpdate({ event: 'onReady' })).toBeNull()
-  })
-})
-
-describe('withBackups', () => {
-  it('tries the primary video first, then rotates the backups by offset', () => {
-    expect(withBackups('main', ['a', 'b', 'c'], 0)).toEqual(['main', 'a', 'b', 'c'])
-    expect(withBackups('main', ['a', 'b', 'c'], 1)).toEqual(['main', 'b', 'c', 'a'])
-    expect(withBackups('main', ['a', 'b', 'c'], 5)).toEqual(['main', 'c', 'a', 'b'])
-  })
-
-  it('never lists the primary twice', () => {
-    expect(withBackups('a', ['a', 'b'], 0)).toEqual(['a', 'b'])
-  })
-
-  it('works without backups', () => {
-    expect(withBackups('main', [], 3)).toEqual(['main'])
   })
 })

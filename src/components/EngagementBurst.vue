@@ -15,8 +15,8 @@
       }"
     >
       <span v-if="item.kind === 'stick'" class="burst__stick" />
-      <VineLeaf v-else-if="item.kind === 'leaf'" :fill="i % 2 ? '#3f8f3a' : '#2f7a34'" />
-      <GrapeBunch v-else :color="nextGrape(i)" />
+      <VineLeaf v-else-if="item.kind === 'leaf'" :dark="i % 2 === 0" />
+      <GrapeBunch v-else :color="COLORS[i]!" />
     </div>
   </div>
 </template>
@@ -24,13 +24,13 @@
 <script setup lang="ts">
 import GrapeBunch from '@/components/GrapeBunch.vue'
 import VineLeaf from '@/components/VineLeaf.vue'
-import { BURST } from '@/engagements'
-import type { GrapeColor } from '@/products'
+import { BURST } from '@/data/engagements'
+import type { GrapeColor } from '@/data/grapes'
 
 const props = defineProps<{ grapes: GrapeColor[] }>()
 
-const bunchIndexes = BURST.flatMap((item, i) => (item.kind === 'bunch' ? [i] : []))
-
-const nextGrape = (i: number) =>
-  props.grapes[bunchIndexes.indexOf(i) % props.grapes.length] ?? 'purple'
+let bunch = 0
+const COLORS = BURST.map((item) =>
+  item.kind === 'bunch' ? props.grapes[bunch++ % props.grapes.length]! : undefined,
+)
 </script>

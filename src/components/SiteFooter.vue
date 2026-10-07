@@ -19,7 +19,7 @@
             transform: `translate(-50%, -50%) rotate(${item.rotate}deg)`,
           }"
         >
-          <VineLeaf v-if="item.kind === 'leaf'" :fill="i % 2 ? '#3f8f3a' : '#2f7a34'" />
+          <VineLeaf v-if="item.kind === 'leaf'" :dark="i % 2 === 0" />
           <GrapeBunch v-else :color="item.kind" />
         </div>
         <BrandLogo class="relative h-full w-auto drop-shadow-lg" />
@@ -60,7 +60,7 @@ import BrandLogo from '@/components/BrandLogo.vue'
 import GrapeBunch from '@/components/GrapeBunch.vue'
 import VineLeaf from '@/components/VineLeaf.vue'
 import { scrollToTop } from '@/lib/scroll'
-import type { GrapeColor } from '@/products'
+import type { GrapeColor } from '@/data/grapes'
 
 type Decor = { kind: 'leaf' | GrapeColor; x: number; y: number; size: number; rotate: number }
 

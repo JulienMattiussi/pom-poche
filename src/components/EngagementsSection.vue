@@ -22,5 +22,5 @@
 
 <script setup lang="ts">
 import EngagementBurst from '@/components/EngagementBurst.vue'
-import { ENGAGEMENTS } from '@/engagements'
+import { ENGAGEMENTS } from '@/data/engagements'
 </script>

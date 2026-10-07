@@ -2,14 +2,7 @@
   <section class="about">
     <div class="px-6 pt-16 pb-20 text-center">
       <h2 class="about__title">Pionniers depuis 2026</h2>
-      <iframe
-        :src="playerUrl(PIONEERS_VIDEO)"
-        title="Vidéo YouTube"
-        loading="lazy"
-        allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-        allowfullscreen
-        class="about__hero"
-      />
+      <YouTubePlayer :id="PIONEERS_VIDEO" class="about__hero" />
     </div>
     <div class="overflow-x-clip px-6 pt-8 pb-40">
       <p class="about__pitch">
@@ -21,32 +14,14 @@
         <li v-for="(polaroid, i) in POLAROIDS" :key="i" class="polaroid-slot">
           <p class="polaroid-note" :data-place="polaroid.place">
             {{ polaroid.caption }}
-            <svg viewBox="0 0 40 40" class="polaroid-note__arrow" aria-hidden="true">
-              <path
-                d="M4 6 C22 4 32 14 30 34 M23 28 L30 35 L36 27"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            <DoodleArrow class="polaroid-note__arrow" />
           </p>
           <figure class="polaroid" :style="{ '--tilt': `${polaroid.tilt}deg` }">
             <svg v-if="i === 1" viewBox="0 0 80 40" class="polaroid__clip" aria-hidden="true">
               <path d="M4 14 C20 2 60 2 76 14 C60 22 20 22 4 14 Z" fill="#4cb648" />
               <rect x="30" y="6" width="20" height="32" rx="4" fill="#2f9a2f" />
             </svg>
-            <iframe
-              v-if="polaroid.youtube"
-              :src="playerUrl(polaroid.youtube)"
-              title="Vidéo YouTube"
-              loading="lazy"
-              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-              allowfullscreen
-              class="block aspect-[4/3] w-full border-0 bg-black"
-            />
-            <PhotoPlaceholder v-else class="aspect-[4/3] w-full" />
+            <YouTubePlayer :id="polaroid.youtube" class="polaroid__video" />
           </figure>
         </li>
       </ul>
@@ -55,13 +30,20 @@
 </template>
 
 <script setup lang="ts">
-import PhotoPlaceholder from '@/components/PhotoPlaceholder.vue'
-import { playerUrl } from '@/lib/youtube'
+import DoodleArrow from '@/components/DoodleArrow.vue'
 import YearHighlight from '@/components/YearHighlight.vue'
+import YouTubePlayer from '@/components/YouTubePlayer.vue'
+
+type Polaroid = {
+  tilt: number
+  place: 'top-left' | 'bottom' | 'top-right'
+  caption: string
+  youtube: string
+}
 
 const PIONEERS_VIDEO = 'qciVY1Hma_s'
 
-const POLAROIDS: { tilt: number; place: string; caption: string; youtube?: string }[] = [
+const POLAROIDS: Polaroid[] = [
   {
     tilt: -5,
     place: 'top-left',

@@ -29,5 +29,5 @@
 <script setup lang="ts">
 import BrandLogo from '@/components/BrandLogo.vue'
 import { scrollToTop } from '@/lib/scroll'
-import { LEFT_LINKS, RIGHT_LINKS } from '@/sections'
+import { LEFT_LINKS, RIGHT_LINKS } from '@/data/sections'
 </script>

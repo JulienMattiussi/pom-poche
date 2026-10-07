@@ -6,12 +6,6 @@ export const embedUrl = (id: string, origin: string) =>
 export const playerUrl = (id: string) =>
   `${YOUTUBE_ORIGIN}/embed/${id}?rel=0&autoplay=1&mute=1&loop=1&playlist=${id}&playsinline=1`
 
-export const withBackups = (primary: string, backups: string[], offset: number) => {
-  const others = backups.filter((id) => id !== primary)
-  const shift = others.length ? offset % others.length : 0
-  return [primary, ...others.slice(shift), ...others.slice(0, shift)]
-}
-
 export const backgroundUrl = (id: string, start = 0) =>
   `${YOUTUBE_ORIGIN}/embed/${id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${id}&playsinline=1&rel=0&disablekb=1&iv_load_policy=3&start=${start}`
 

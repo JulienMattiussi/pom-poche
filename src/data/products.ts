@@ -1,4 +1,4 @@
-export type GrapeColor = 'purple' | 'green' | 'red' | 'black' | 'pink' | 'amber'
+import type { GrapeColor } from '@/data/grapes'
 
 type Bunch = { color: GrapeColor; side: 'left' | 'middle' | 'right' }
 
@@ -9,15 +9,6 @@ export type Product = {
   alt: string
   tilt: number
   bunches: Bunch[]
-}
-
-export const GRAPE_COLORS: Record<GrapeColor, string> = {
-  purple: '#6b2d7b',
-  green: '#9cc23c',
-  red: '#b8283f',
-  black: '#3a2347',
-  pink: '#e17aa0',
-  amber: '#d9a62c',
 }
 
 export const PRODUCTS: Product[] = [

@@ -34,7 +34,7 @@
       />
     </button>
     <img v-else-if="photo" :src="photo.src" :alt="photo.alt" loading="lazy" class="post__photo" />
-    <PhotoPlaceholder v-else :video="post.video" class="h-full w-full" />
+    <PhotoPlaceholder v-else :video="post.network === 'youtube'" class="h-full w-full" />
     <span class="social-badge post__badge">
       <SocialIcon :network="post.network" />
     </span>
@@ -45,7 +45,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue'
 import PhotoPlaceholder from '@/components/PhotoPlaceholder.vue'
 import SocialIcon from '@/components/SocialIcon.vue'
-import type { Photo, Post } from '@/community'
+import type { Photo, Post } from '@/data/community'
 import {
   ENDED,
   LISTEN_MESSAGE,

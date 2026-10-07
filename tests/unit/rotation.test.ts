@@ -1,4 +1,4 @@
-import { assignVideos, shuffle } from '@/lib/rotation'
+import { assignVideos, shuffle, withBackups } from '@/lib/rotation'
 
 const sequence = (...values: number[]) => {
   let i = 0
@@ -30,5 +30,21 @@ describe('assignVideos', () => {
 
   it('leaves extra slots empty when the pool runs out', () => {
     expect(assignVideos(3, ['a'], [], () => 0)).toEqual([['a']])
+  })
+})
+
+describe('withBackups', () => {
+  it('tries the primary video first, then rotates the backups by offset', () => {
+    expect(withBackups('main', ['a', 'b', 'c'], 0)).toEqual(['main', 'a', 'b', 'c'])
+    expect(withBackups('main', ['a', 'b', 'c'], 1)).toEqual(['main', 'b', 'c', 'a'])
+    expect(withBackups('main', ['a', 'b', 'c'], 5)).toEqual(['main', 'c', 'a', 'b'])
+  })
+
+  it('never lists the primary twice', () => {
+    expect(withBackups('a', ['a', 'b'], 0)).toEqual(['a', 'b'])
+  })
+
+  it('works without backups', () => {
+    expect(withBackups('main', [], 3)).toEqual(['main'])
   })
 })

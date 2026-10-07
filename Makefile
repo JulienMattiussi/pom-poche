@@ -52,6 +52,7 @@ favicon: ## Re-render public/favicon.png and public/apple-touch-icon.png from sc
 		--window-size=180,180 --screenshot=public/apple-touch-icon.png "file://$(CURDIR)/scripts/favicon-template.html#opaque" 2>/dev/null
 	@echo "public/favicon.png (192x192) et public/apple-touch-icon.png (180x180) regeneres"
 
+.PHONY: pouches
 pouches: ## Re-cut every mockup of pouches/src/ into public/pouches/ (needs Python + Pillow, ImageMagick)
 	@python3 scripts/cutout-pouches.py
 

@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { GRAPE_COLORS, type GrapeColor } from '@/products'
+import { GRAPE_COLORS, type GrapeColor } from '@/data/grapes'
 
 const props = defineProps<{ color: GrapeColor }>()
 

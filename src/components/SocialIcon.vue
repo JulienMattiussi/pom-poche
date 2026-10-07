@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Network } from '@/community'
+import type { Network } from '@/data/community'
 
 defineProps<{ network: Network }>()
 </script>

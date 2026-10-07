@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import GrapeBunch from '@/components/GrapeBunch.vue'
-import type { Product } from '@/products'
+import type { Product } from '@/data/products'
 
 defineProps<{ product: Product }>()
 </script>

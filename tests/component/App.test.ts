@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, within } from '@testing-library/vue'
 import { nextTick } from 'vue'
 import App from '@/App.vue'
-import { BACKUP_ONLY, PHOTOS, SHORTS } from '@/community'
+import { BACKUP_ONLY, PHOTOS, SHORTS } from '@/data/community'
 
 describe('App', () => {
   it('opens on the hero headline', () => {

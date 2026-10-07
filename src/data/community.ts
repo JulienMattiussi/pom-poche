@@ -1,6 +1,6 @@
 export type Network = 'picolagram' | 'tiktrinque' | 'facebouteille' | 'berond' | 'youtube'
 
-export type Post = { network: Network; video: boolean; tilt: number }
+export type Post = { network: Network; tilt: number }
 
 export const NETWORKS: { id: Exclude<Network, 'youtube'>; label: string }[] = [
   { id: 'picolagram', label: 'Picolagram' },
@@ -36,14 +36,14 @@ export const PHOTOS: Photo[] = [
 ]
 
 export const POSTS: Post[] = [
-  { network: 'berond', video: false, tilt: 3 },
-  { network: 'youtube', video: true, tilt: -3 },
-  { network: 'facebouteille', video: false, tilt: 2 },
-  { network: 'youtube', video: true, tilt: -2 },
-  { network: 'picolagram', video: false, tilt: 3 },
-  { network: 'youtube', video: true, tilt: -4 },
-  { network: 'berond', video: false, tilt: 2 },
-  { network: 'youtube', video: true, tilt: -2 },
-  { network: 'tiktrinque', video: false, tilt: 3 },
-  { network: 'youtube', video: true, tilt: -3 },
+  { network: 'berond', tilt: 3 },
+  { network: 'youtube', tilt: -3 },
+  { network: 'facebouteille', tilt: 2 },
+  { network: 'youtube', tilt: -2 },
+  { network: 'picolagram', tilt: 3 },
+  { network: 'youtube', tilt: -4 },
+  { network: 'berond', tilt: 2 },
+  { network: 'youtube', tilt: -2 },
+  { network: 'tiktrinque', tilt: 3 },
+  { network: 'youtube', tilt: -3 },
 ]

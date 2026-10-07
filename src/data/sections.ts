@@ -1,4 +1,4 @@
-export type Section = { id: string; label: string }
+type Section = { id: string; label: string }
 
 const SECTIONS: Section[] = [
   { id: 'produits', label: 'Produits' },

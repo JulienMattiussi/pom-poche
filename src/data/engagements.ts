@@ -1,4 +1,4 @@
-import type { GrapeColor } from '@/products'
+import type { GrapeColor } from '@/data/grapes'
 
 type Engagement = {
   title: string

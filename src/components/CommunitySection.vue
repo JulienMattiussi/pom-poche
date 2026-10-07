@@ -12,16 +12,7 @@
     </div>
     <p class="community__tag">
       #PomPocheLovers
-      <svg viewBox="0 0 40 40" class="community__arrow" aria-hidden="true">
-        <path
-          d="M4 6 C22 4 32 14 30 34 M23 28 L30 35 L36 27"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
+      <DoodleArrow class="community__arrow" />
     </p>
     <div class="community__reel">
       <ul class="community__track">
@@ -29,8 +20,7 @@
           v-for="(post, i) in [...POSTS, ...POSTS]"
           :key="i"
           :post="post"
-          :videos="videosFor(i % POSTS.length)"
-          :photo="photoFor(i % POSTS.length)"
+          v-bind="SLOTS[i % POSTS.length]"
           :duplicate="i >= POSTS.length"
           :aria-hidden="i >= POSTS.length"
         />
@@ -41,23 +31,21 @@
 
 <script setup lang="ts">
 import CommunityPost from '@/components/CommunityPost.vue'
+import DoodleArrow from '@/components/DoodleArrow.vue'
 import SocialIcon from '@/components/SocialIcon.vue'
-import { BACKUP_ONLY, NETWORKS, PHOTOS, POSTS, SHORTS } from '@/community'
+import { BACKUP_ONLY, NETWORKS, PHOTOS, POSTS, SHORTS } from '@/data/community'
 import { assignVideos, shuffle } from '@/lib/rotation'
 
-const videoSlots = POSTS.flatMap((post, i) => (post.network === 'youtube' ? [i] : []))
-const assignment = assignVideos(videoSlots.length, SHORTS, BACKUP_ONLY)
-
-const videosFor = (index: number) => {
-  const slot = videoSlots.indexOf(index)
-  return slot === -1 ? undefined : assignment[slot]
-}
-
-const photoSlots = POSTS.flatMap((post, i) => (post.network === 'youtube' ? [] : [i]))
+const videos = assignVideos(
+  POSTS.filter((post) => post.network === 'youtube').length,
+  SHORTS,
+  BACKUP_ONLY,
+)
 const photos = shuffle(PHOTOS)
 
-const photoFor = (index: number) => {
-  const slot = photoSlots.indexOf(index)
-  return slot === -1 ? undefined : photos[slot]
-}
+let video = 0
+let photo = 0
+const SLOTS = POSTS.map((post) =>
+  post.network === 'youtube' ? { videos: videos[video++] } : { photo: photos[photo++] },
+)
 </script>

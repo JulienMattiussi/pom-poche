@@ -28,5 +28,5 @@
 
 <script setup lang="ts">
 import ProductCard from '@/components/ProductCard.vue'
-import { PRODUCTS } from '@/products'
+import { PRODUCTS } from '@/data/products'
 </script>
