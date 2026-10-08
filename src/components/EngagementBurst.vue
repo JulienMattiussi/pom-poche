@@ -16,7 +16,7 @@
     >
       <span v-if="item.kind === 'stick'" class="burst__stick" />
       <VineLeaf v-else-if="item.kind === 'leaf'" :dark="i % 2 === 0" />
-      <GrapeBunch v-else :color="COLORS[i]!" />
+      <GrapeBunch v-else :color="COLORS[i]!" :seed="i" />
     </div>
   </div>
 </template>

@@ -69,7 +69,7 @@ src/
 │   ├── BrandLogo.vue         # Logo SVG : bouteille + lettrage « Pom'Poche »
 │   ├── YouTubePlayer.vue     # Lecteur YouTube auto, muet, en boucle, avec contrôles
 │   ├── SocialIcon.vue        # Réseaux parodiques (Picolagram, TikTrinque, FaceBouteille, BeRond) + YouTube
-│   ├── GrapeBunch.vue        # Grappe de raisin SVG
+│   ├── GrapeBunch.vue        # Grappe de raisin SVG (dégradés, pruine, reflets)
 │   ├── VineLeaf.vue          # Feuille de vigne SVG
 │   ├── DoodleArrow.vue       # Flèche dessinée à la main des légendes manuscrites
 │   ├── HealthNotice.vue      # Mention « L'abus d'alcool… » (sous les iconiques, pied de page)
@@ -79,10 +79,11 @@ src/
 │   ├── products.ts           # Les 3 iconiques (bulle, poche, grappes)
 │   ├── engagements.ts        # Les 3 engagements + composition de la gerbe
 │   ├── community.ts          # Réseaux, cartes du défilé, réservoir de Shorts, photos
-│   └── grapes.ts             # Palette des grappes, partagée
+│   └── grapes.ts             # Palette des grappes (clair, base, sombre), partagée
 ├── lib/                      # Logique pure, zéro import Vue (entièrement testée)
 │   ├── rotation.ts           # Mélange, répartition des Shorts et ordre des secours
 │   ├── youtube.ts            # URL d'intégration + messages de l'API iframe
+│   ├── grapes.ts             # Disposition des grains d'une grappe, pseudo-aléatoire
 │   └── scroll.ts             # scrollToTop (entête et pied de page)
 ├── App.vue                   # La page : enchaînement des sections
 ├── index.css                 # Import Tailwind, thème, styles des composants
