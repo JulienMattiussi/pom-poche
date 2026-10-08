@@ -898,6 +898,10 @@
       height: 4.5rem;
     }
 
+    .wavy-ribbon__text {
+      font-size: 40px;
+    }
+
     .hero__content {
       flex-direction: column;
       justify-content: flex-start;

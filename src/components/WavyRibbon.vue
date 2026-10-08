@@ -30,7 +30,7 @@ import { onBeforeUnmount, onMounted, ref, useId, useTemplateRef } from 'vue'
 
 const props = defineProps<{ text: string; inverted?: boolean; reverse?: boolean }>()
 
-const SHAPE = { height: 220, band: 110, amplitude: 45, font: 56 }
+const SHAPE = { height: 220, band: 110, amplitude: 45, font: 46 }
 
 const WIDTH = 1440
 const OVERHANG = 600
