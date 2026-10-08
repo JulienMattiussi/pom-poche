@@ -54,10 +54,10 @@ scripts/
 └── favicon-template.html     # Gabarit des icônes (`make favicon`)
 src/
 ├── components/
-│   ├── SiteHeader.vue        # Barre blanche fixe, liens de part et d'autre du logo
+│   ├── SiteHeader.vue        # Barre blanche fixe, liens de part et d'autre du logo (burger en mobile)
 │   ├── HeroSection.vue       # Plein écran : vidéo YouTube de fond, accroche h1, poche
 │   ├── WavyRibbon.vue        # Bandeau en vague, texte qui défile avec le scroll
-│   ├── IconicsSection.vue    # « Les iconiques » : 3 vignettes produits
+│   ├── IconicsSection.vue    # « Les iconiques » : 3 vignettes produits (carrousel en mobile)
 │   ├── ProductCard.vue       # Vignette : poche, grappes, bulle au survol
 │   ├── EngagementsSection.vue # Cartes blanches inclinées, en quinconce
 │   ├── EngagementBurst.vue   # Grappes et feuilles qui jaillissent derrière une carte
@@ -115,6 +115,22 @@ iconiques », bandeau `#engagements`, engagements, bandeau `#qui-sommes-nous`,
   (barre + débord du logo). À ajuster si la hauteur de l'entête change.
 - Le logo de l'entête, le grand logo du pied de page et sa flèche ramènent en
   haut via `scrollToTop`, qui efface aussi le fragment de l'URL.
+
+### Mode mobile
+
+- **Le desktop ne doit pas bouger** : les adaptations mobiles vivent dans le
+  bloc `@media (width < 48rem)` de `index.css`, ou dans des utilitaires
+  `md:` / `md:hidden`. Une classe Tailwind non préfixée l'emporte sur
+  `@layer components` : une propriété que le mobile redéfinit (largeur, `grid`,
+  arrondi de la barre) passe donc en `md:` dans le gabarit.
+- **Entête** : logo et burger (`site-nav__burger`) ; le menu déroulant reprend
+  les 4 liens. Après 40px de scroll, la barre se resserre en pastille
+  (`is-compact`) et le logo rentre dedans.
+- **Hero** : accroche centrée, poche affichée dessous (rognée par le bas).
+- **Iconiques** : carrousel en `scroll-snap`, pleine largeur, avec flèches et
+  points. Le `padding-top` du carrousel laisse dépasser les poches (un
+  conteneur en `overflow-x: auto` rogne aussi en vertical).
+- **Défilé** : cartes à 62vw.
 
 ### Contenu et présentation
 
@@ -175,8 +191,8 @@ iconiques », bandeau `#engagements`, engagements, bandeau `#qui-sommes-nous`,
   légende : `top-left`, `bottom` ou `top-right` ; la même flèche est retournée
   en CSS (`scaleX` / `scaleY`) selon la position.
 - La légende est sœur de la photo, pas enfant : elle ne tourne pas avec elle.
-- En mobile, l'espace vertical entre polaroïds (13rem) loge les légendes
-  `bottom` et `top-right` qui se suivent ; ne pas le réduire.
+- En mobile, `place` est ignoré : toutes les légendes sont centrées au-dessus
+  de leur polaroïd, flèche à droite. L'espace entre polaroïds (9rem) les loge.
 
 ### Défilé de la communauté
 
