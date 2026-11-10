@@ -1,6 +1,6 @@
 <div align="center">
 
-[![PomPoche](./public/og.png)](https://pom-poche.vercel.app)
+[![PomPoche](./public/og.png)](https://pom-poche.yavadeus.dev)
 
 # PomPoche
 
@@ -15,7 +15,7 @@ boire : à chaque apéro sa poche PomPoche.**
 ![Parodie](https://img.shields.io/badge/parodie-100%20%25-234a35.svg)
 ![Sucres ajoutés](https://img.shields.io/badge/sucres%20ajout%C3%A9s-0%20g-e03246.svg)
 
-### [▶ Voir le site](https://pom-poche.vercel.app)
+### [▶ Voir le site](https://pom-poche.yavadeus.dev)
 
 </div>
 

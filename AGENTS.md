@@ -5,7 +5,7 @@ page en scroll vertical, calquée sur le site d'une marque de compotes à boire.
 Application **100% front-end**, interface en **français**. Partage la stack et
 les conventions de `atre-soundboard`, transposées de React à **Vue**.
 
-Hébergement : **Vercel Hobby**, adresse publique **https://pom-poche.vercel.app**.
+Hébergement : **Vercel Hobby**, adresse publique **https://pom-poche.yavadeus.dev**.
 Aucune Function, aucune base, aucun secret.
 
 ---
